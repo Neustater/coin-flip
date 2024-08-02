@@ -160,7 +160,7 @@ body{
 
 .center{
   height: 100%;
-  width: 40px;
+  width: 38px;
   transform: rotateY(90deg);
 
   display: flex;
