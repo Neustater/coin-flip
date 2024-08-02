@@ -17,13 +17,13 @@ export default function CoinToss() {
     
     setAnimation(' reset-animation');
 
-    // Force a re-render before setting the next animation state with no delay
+    // Force a re-render before setting the next animation state with small delay to accomodate firefox
     await new Promise((resolve) => setTimeout(() => {
       setAnimation(' spin');
       console.log('Is spinning');
       setResult('?');
       resolve();
-    }, 0)); 
+    }, 1)); 
 
     //Promise to prevent new spin
     // Delay of 1980 milliseconds then re-render

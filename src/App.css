@@ -8,6 +8,7 @@ html, body {
 
 body{
   background-color: rgb(28, 28, 28);
+  overflow: hidden
 }
 
 /* General Containers */
@@ -140,18 +141,20 @@ body{
 }
 
 .front{
-  transform: translateZ(20px);
+  transform: translateZ(22px);
 }
 
 .back{
-  transform: translateZ(-20px);
+  transform: translateZ(-22px);
 }
 
 .front p, .back p{
-  color: rgb(220, 186, 49);
+  color: rgba(236, 199, 48, 0.976);
   -webkit-text-stroke: 10px rgb(221, 181, 0);
-  font-weight: 400px;
   font-size: 200px;
+  text-align: center;
+  overflow: hidden;
+  font-weight: bold;
 }
 
 .center, .edge-front, .edge-back{
@@ -160,8 +163,8 @@ body{
 
 .center{
   height: 100%;
-  width: 38px;
-  transform: rotateY(90deg);
+  width: 39px;
+  transform: rotateY(88deg);
 
   display: flex;
   justify-content: center;
@@ -171,11 +174,11 @@ body{
 /* Building Coin in 3D */
 
 .edge-front{
-  transform: translateZ(-19.9px);
+  transform: translateZ(-20px);
 }
 
 .edge-back{
-  transform: translateZ(19.9px);
+  transform: translateZ(20px);
 }
 
 /* Flip Animations */
