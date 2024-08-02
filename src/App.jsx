@@ -14,14 +14,16 @@ export default function CoinToss() {
     setIsSpinning(true);
 
     // Reset the animation state
+    
     setAnimation(' reset-animation');
 
     // Force a re-render before setting the next animation state with no delay
-    setTimeout(() => {
+    await new Promise((resolve) => setTimeout(() => {
       setAnimation(' spin');
       console.log('Is spinning');
       setResult('?');
-    }, 0); 
+      resolve();
+    }, 0)); 
 
     //Promise to prevent new spin
     // Delay of 1980 milliseconds then re-render
