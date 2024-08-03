@@ -1,53 +1,42 @@
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import './App.css'
 
 export default function CoinToss() {
-  const [animation, setAnimation] = useState(' idle');
-  const [isSpinning, setIsSpinning] = useState(false);
   const [result, setResult] = useState('?');
+  const coinRef = useRef(null);
 
-  async function spin(){
-    if (isSpinning){ 
-      console.log("Busy spinning"); 
-      return;
-    }
-    setIsSpinning(true);
-
-    // Reset the animation state
-    
-    setAnimation(' reset-animation');
-
-    // Force a re-render before setting the next animation state with small delay to accomodate firefox
-    await new Promise((resolve) => setTimeout(() => {
-      setAnimation(' spin');
-      console.log('Is spinning');
-      setResult('?');
-      resolve();
-    }, 1)); 
-
-    //Promise to prevent new spin
-    // Delay of 1980 milliseconds then re-render
-    await new Promise((resolve) => setTimeout(() => {
-      console.log('Finished Spin');
+  useEffect(() => {
+    const coinElement = coinRef.current;
+    //Display outcome of coin flip
+    const handleAnimationEnd = () => {
       setResult(Math.random() < 0.5 ? 'H' : 'T');
-      resolve();
-    }, 1980));
+    };
 
-    // Delay of 5000 milliseconds then re-render
-    await new Promise((resolve) => setTimeout(() => {
-      setAnimation(' idle');
+    //Reset coin to '?' when animation starts
+    const handleAnimationStart = () => {
       setResult('?');
-      console.log('Idle restarted');
-      setIsSpinning(false);
-      resolve()
-    }, 5000));
-  }
+    };
+
+    if (coinElement) {
+      coinElement.addEventListener('animationend', handleAnimationEnd);
+      coinElement.addEventListener('animationstart', handleAnimationStart);
+    }
+
+    return () => {
+      if (coinElement) {
+        coinElement.removeEventListener('animationend', handleAnimationEnd);
+        coinElement.removeEventListener('animationstart', handleAnimationStart);
+      }
+    };
+  }, []);
+
 
   return (
     <div className='container'>
       <div className='coin-container'>
         <div className='coin-bounds'>
-          <div className={'coin' + animation} onClick={spin}>
+          <input type='checkbox'></input>
+          <div className='coin' ref={coinRef}>
             <div className='back'><p>{result}</p></div>
             <div className='edge-front'></div>
             <div className='center'></div>

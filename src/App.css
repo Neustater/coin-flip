@@ -31,6 +31,7 @@ body{
     justify-content: center;
     margin-top: 2.5svh;
     margin-bottom: 2.5svh;
+    
 }
 
 .coin-container {
@@ -38,6 +39,9 @@ body{
   align-items: center;
   justify-content: center;
   margin: auto;
+
+  position: relative;
+  transform-style: preserve-3d;
 }
 
 /* Display specific elements */
@@ -97,14 +101,8 @@ body{
   justify-content: center;
   align-items: center;
 }
-
-.coin{
-  -webkit-user-select: none; /* Safari */
-  -ms-user-select: none; /* IE 10 and IE 11 */
-  user-select: none; /* Standard syntax */
-  flex-shrink: 0; /* Prevent shrinking */
-  
-  position: relative;
+.coin-bounds > *{
+  position:absolute;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -114,13 +112,26 @@ body{
   width: 256px;
 }
 
-.coin:hover{
-  box-shadow: 0 0 100px 10px rgb(174, 113, 0);
+/* Styling Coin */
+
+.coin{
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+.coin-bounds input[type='checkbox'] {
+  z-index: 1;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .coin > *{
   position:absolute;
 }
+
+/* Styling sub elements */
 
 .front, .back, .edge-front, .edge-back{
   transform-style: preserve-3d;
@@ -152,6 +163,7 @@ body{
   color: rgba(236, 199, 48, 0.976);
   -webkit-text-stroke: 10px rgb(221, 181, 0);
   font-size: 200px;
+  line-height: 200px;
   text-align: center;
   overflow: hidden;
   font-weight: bold;
@@ -181,31 +193,45 @@ body{
   transform: translateZ(20px);
 }
 
-/* Flip Animations */
+/* Animation Trigger */
+
+.coin-bounds input[type=checkbox]:checked + .coin{
+  animation: coin-spin 3s ease-out;
+  box-shadow: 0 0 100px 10px rgb(174, 113, 0);
+  content: 'whatever it is you want to add';
+}
+
+.coin-bounds input[type=checkbox]:not(:checked) + .coin{
+  animation: coin-idle 2s linear infinite;
+}
+
+/* Animations */
 
 .idle{
-  animation: coin-spin 1.2s linear infinite;
+  animation: coin-idle 1.2s linear infinite;
   transition: box-shadow 0.2s ease-in-out;
 }
 
-.reset-animation {
-  animation: none;
-}
-
 .spin{
-  animation-iteration-count: 10;
-  animation-duration: 0.2s;
-  animation-timing-function: ease-out;
-  animation-name: coin-spin
+  animation: coin-spin 3s linear infinite;
 }
 
+
+@keyframes coin-idle {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
 
 @keyframes coin-spin {
   0% {
     transform: rotateY(0deg);
   }
   100% {
-    transform: rotateY(360deg);
+    transform: rotateY(10800deg);
   }
 }
 
