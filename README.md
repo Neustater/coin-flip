@@ -1,7 +1,7 @@
 ## Coin Flip
 * Simple coin-fliping React APP
 * CSS magic to render the coin and animations 🪄
-* React code to manage animations and determine flip result
+* ReactJS code to determine flip result
 * Try it [here](https://neustater.github.io/coin-flip/)!
 
 ### Dependencies
